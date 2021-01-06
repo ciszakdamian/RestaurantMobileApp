@@ -31,7 +31,9 @@ namespace RestaurantMobileApp.Views
 
         void onClick(object sender, EventArgs e)
         {
-            Order.Text = "test";
+
+            var item = new {description = Order.Text, number = TableNumber.Text, places = PeopleNumber.Text};
+            _restService.PostOrder(item);
         }
     }
 }

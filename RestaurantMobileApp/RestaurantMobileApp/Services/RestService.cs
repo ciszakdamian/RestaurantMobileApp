@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using RestaurantMobileApp.Models;
@@ -37,6 +38,20 @@ namespace RestaurantMobileApp.Services
             }
 
             return table;
+        }
+
+        public async void PostOrder(object item)
+        {
+            string json = JsonConvert.SerializeObject(item);
+            StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+            string uri = backendUrl + "/tables";
+            HttpResponseMessage response = null;
+            response = await _client.PostAsync(uri, content);
+            
+            if (response.IsSuccessStatusCode)
+            {
+                Debug.WriteLine(@"\tTodoItem successfully saved.");
+            }
         }
 
         public async Task<Table[]> GetTableList()
