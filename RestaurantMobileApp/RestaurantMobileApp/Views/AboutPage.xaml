@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="RestaurantMobileApp.Views.AboutPage"
+             xmlns:vm="clr-namespace:RestaurantMobileApp.ViewModels"
+             Title="{Binding Title}">
+    
+    <ContentPage.BindingContext>
+        <vm:AboutViewModel />
+    </ContentPage.BindingContext>
+    
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Color x:Key="Accent">#96d</Color>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Grid Padding="20" VerticalOptions="CenterAndExpand">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40" />
+            <RowDefinition Height="40" />
+            <RowDefinition Height="40" />
+            <RowDefinition Height="40" />
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="5*" />
+        </Grid.ColumnDefinitions>
+
+        <Entry Keyboard="Numeric" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" x:Name="TableNumber" Placeholder="Numer stolika" HorizontalOptions="FillAndExpand"/>
+        <Entry Keyboard="Numeric" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" x:Name="PeopleNumber" Placeholder="Liczba osób"  HorizontalOptions="FillAndExpand"/>
+        <Editor Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" x:Name="Order" Placeholder="Zamówienie"  HorizontalOptions="FillAndExpand"/>
+        <Button Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"  HorizontalOptions="FillAndExpand" Text="Zatwierdz zamówienie" TextColor="White" BackgroundColor="Black" Clicked="onClick"/>
+    </Grid>
+
+</ContentPage>
