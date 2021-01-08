@@ -1,12 +1,26 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="RestaurantMobileApp.Views.OrdersPage">
-    <ContentPage.Content>
-        <StackLayout>
-            <Label  x:Name="test" Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
-    </ContentPage.Content>
-</ContentPage> 
+             x:Class="RestaurantMobileApp.Views.OrdersPage"
+             xmlns:vm="clr-namespace:RestaurantMobileApp.ViewModels"
+             Title="{Binding Title}">
+    
+    <ContentPage.BindingContext>
+        <vm:OrdersViewModel />
+    </ContentPage.BindingContext>
+    
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Color x:Key="Accent">#96d</Color>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <StackLayout>
+        <Label Text="id" x:Name="id" HorizontalOptions="FillAndExpand"/>
+        <Label Text="id" x:Name="number" HorizontalOptions="FillAndExpand"/>
+        <Label Text="id" x:Name="places" HorizontalOptions="FillAndExpand"/>
+        <Label Text="id" x:Name="description" HorizontalOptions="FillAndExpand"/>
+
+    </StackLayout>
+
+</ContentPage>

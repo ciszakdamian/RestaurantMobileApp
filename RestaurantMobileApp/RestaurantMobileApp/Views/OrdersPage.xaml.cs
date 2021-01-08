@@ -2,6 +2,7 @@
 using RestaurantMobileApp.Services;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -32,11 +33,14 @@ namespace RestaurantMobileApp.Views
 
             Table[] tableList = null;
             tableList = await _restService.GetTableList();
-            /*
-                        test.Text = tableList.Length.ToString();*/
 
-            test.Text = tableList.GetType().ToString();
+/*            test.Text = x.GetType().ToString();
+            test.Text = tableList.Length.ToString();*/
 
+/*            foreach (var order in tableList)
+            {
+                test.Text = order.GetType().ToString();
+            }*/
 
         }
     }
