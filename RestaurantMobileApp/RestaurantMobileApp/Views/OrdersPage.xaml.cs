@@ -34,13 +34,12 @@ namespace RestaurantMobileApp.Views
             Table[] tableList = null;
             tableList = await _restService.GetTableList();
 
-/*            test.Text = x.GetType().ToString();
-            test.Text = tableList.Length.ToString();*/
-
-/*            foreach (var order in tableList)
+            foreach (var order in tableList)
             {
-                test.Text = order.GetType().ToString();
-            }*/
+                number.Text = order.number.ToString();
+                places.Text = order.places.ToString();
+                description.Text = order.description.ToString();
+            }
 
         }
     }

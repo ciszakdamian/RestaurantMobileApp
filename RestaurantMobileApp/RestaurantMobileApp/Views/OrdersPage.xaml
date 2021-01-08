@@ -16,10 +16,9 @@
     </ContentPage.Resources>
 
     <StackLayout>
-        <Label Text="id" x:Name="id" HorizontalOptions="FillAndExpand"/>
-        <Label Text="id" x:Name="number" HorizontalOptions="FillAndExpand"/>
-        <Label Text="id" x:Name="places" HorizontalOptions="FillAndExpand"/>
-        <Label Text="id" x:Name="description" HorizontalOptions="FillAndExpand"/>
+        <Label Text="number" x:Name="number" HorizontalOptions="FillAndExpand"/>
+        <Label Text="places" x:Name="places" HorizontalOptions="FillAndExpand"/>
+        <Label Text="description" x:Name="description" HorizontalOptions="FillAndExpand"/>
 
     </StackLayout>
 
