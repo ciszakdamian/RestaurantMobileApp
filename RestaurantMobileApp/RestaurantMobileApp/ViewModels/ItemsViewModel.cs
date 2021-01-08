@@ -7,27 +7,28 @@ using Xamarin.Forms;
 
 using RestaurantMobileApp.Models;
 using RestaurantMobileApp.Views;
+using RestaurantMobileApp.Services;
 
 namespace RestaurantMobileApp.ViewModels
 {
     public class ItemsViewModel : BaseViewModel
     {
-        private Item _selectedItem;
+        private Table _selectedTable;
 
-        public ObservableCollection<Item> Items { get; }
-        public Command LoadItemsCommand { get; }
-        public Command AddItemCommand { get; }
-        public Command<Item> ItemTapped { get; }
+        public ObservableCollection<Table> Tables { get; }
+        public Command LoadTablesCommand { get; }
+        public Command AddTableCommand { get; }
+        public Command<Table> TableTapped { get; }
 
         public ItemsViewModel()
         {
-            Title = "Browse";
-            Items = new ObservableCollection<Item>();
-            LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
+            Title = "Stoliki";
+            Tables = new ObservableCollection<Table>();
+            LoadTablesCommand = new Command(async () => await ExecuteLoadItemsCommand());
 
-            ItemTapped = new Command<Item>(OnItemSelected);
+            TableTapped = new Command<Table>(OnTableSelected);
 
-            AddItemCommand = new Command(OnAddItem);
+            AddTableCommand = new Command(OnAddTable);
         }
 
         async Task ExecuteLoadItemsCommand()
@@ -36,11 +37,12 @@ namespace RestaurantMobileApp.ViewModels
 
             try
             {
-                Items.Clear();
-                var items = await DataStore.GetItemsAsync(true);
+                Tables.Clear();
+                RestService _restService = new RestService();
+                var items = await _restService.GetTableList();
                 foreach (var item in items)
                 {
-                    Items.Add(item);
+                    Tables.Add(item);
                 }
             }
             catch (Exception ex)
@@ -56,31 +58,31 @@ namespace RestaurantMobileApp.ViewModels
         public void OnAppearing()
         {
             IsBusy = true;
-            SelectedItem = null;
+            SelectedTable = null;
         }
 
-        public Item SelectedItem
+        public Table SelectedTable
         {
-            get => _selectedItem;
+            get => _selectedTable;
             set
             {
-                SetProperty(ref _selectedItem, value);
-                OnItemSelected(value);
+                SetProperty(ref _selectedTable, value);
+                OnTableSelected(value);
             }
         }
 
-        private async void OnAddItem(object obj)
+        private async void OnAddTable(object obj)
         {
-            await Shell.Current.GoToAsync(nameof(NewItemPage));
+            await Shell.Current.GoToAsync(nameof(NewTablePage));
         }
 
-        async void OnItemSelected(Item item)
+        async void OnTableSelected(Table item)
         {
             if (item == null)
                 return;
 
             // This will push the ItemDetailPage onto the navigation stack
-            await Shell.Current.GoToAsync($"{nameof(ItemDetailPage)}?{nameof(ItemDetailViewModel.ItemId)}={item.Id}");
+            await Shell.Current.GoToAsync($"{nameof(TableDetailPage)}?{nameof(TableDetailViewModel.ItemId)}={item.id}");
         }
     }
 }

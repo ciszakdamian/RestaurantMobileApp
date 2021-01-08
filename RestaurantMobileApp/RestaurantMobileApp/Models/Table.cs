@@ -5,8 +5,12 @@ using Newtonsoft.Json;
 
 namespace RestaurantMobileApp.Models
 {
-    class Table
+    public class Table
     {
+
+        [JsonProperty("id")]
+        public int id { get; set; }
+
         [JsonProperty("number")]
         public int number { get; set; }
 
