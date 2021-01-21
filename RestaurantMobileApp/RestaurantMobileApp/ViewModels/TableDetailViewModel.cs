@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Threading.Tasks;
 using RestaurantMobileApp.Models;
+using RestaurantMobileApp.Services;
 using Xamarin.Forms;
 
 namespace RestaurantMobileApp.ViewModels
@@ -10,21 +11,11 @@ namespace RestaurantMobileApp.ViewModels
     public class TableDetailViewModel : BaseViewModel
     {
         private string itemId;
-        private string text;
-        private string description;
-        public string Id { get; set; }
+        public int Id { get; set; }
 
-        public string Text
-        {
-            get => text;
-            set => SetProperty(ref text, value);
-        }
+        public int text { get; set; }
 
-        public string Description
-        {
-            get => description;
-            set => SetProperty(ref description, value);
-        }
+        public string description { get; set; }
 
         public string ItemId
         {
@@ -43,10 +34,11 @@ namespace RestaurantMobileApp.ViewModels
         {
             try
             {
-                var item = await DataStore.GetItemAsync(itemId);
-                Id = item.Id;
-                Text = item.Text;
-                Description = item.Description;
+                RestService restService = new RestService();
+                var table = await restService.GetTable(Convert.ToInt32(itemId));
+                Id = table.id;
+                text = table.number;
+                description = table.description;
             }
             catch (Exception)
             {

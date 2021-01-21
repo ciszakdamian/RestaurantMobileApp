@@ -11,9 +11,6 @@ namespace RestaurantMobileApp.ViewModels
     public class NewTableViewModel : BaseViewModel
     {
 
-        private int number;
-        private int places;
-        private string description;
 
         public NewTableViewModel()
         {
@@ -23,23 +20,11 @@ namespace RestaurantMobileApp.ViewModels
                 (_, __) => SaveCommand.ChangeCanExecute();
         }
 
-        public int Number
-        {
-            get => Number;
-            set => SetProperty(ref number, value);
-        }
+        public int number { get;  set; }
 
-        public int Places
-        {
-            get => Places;
-            set => SetProperty(ref places, value);
-        }
+        public int places { get; set ; }
 
-        public string Description
-        {
-            get => Description;
-            set => SetProperty(ref description, value);
-        }
+        public string description { get; set; }
 
         public Command SaveCommand { get; }
         public Command CancelCommand { get; }
@@ -54,9 +39,9 @@ namespace RestaurantMobileApp.ViewModels
         {
             Table newTable = new Table()
             {
-                number = Number,
-                places = Places,
-                description = Description
+                number = number,
+                places = places,
+                description = description
             };
             RestService restService = new RestService();
             restService.PostOrder(newTable);
