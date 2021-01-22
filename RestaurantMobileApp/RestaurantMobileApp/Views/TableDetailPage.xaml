@@ -5,10 +5,17 @@
              Title="{Binding Title}">
 
     <StackLayout Spacing="20" Padding="15">
-        <Label Text="Text:" FontSize="Medium" />
-        <Label Text="{Binding text}" FontSize="Small"/>
-        <Label Text="Description:" FontSize="Medium" />
+        <Label Text="Numer:" FontSize="Medium" />
+        <Label Text="{Binding Number}" FontSize="Small"/>
+        <Label Text="Opis:" FontSize="Medium" />
         <Label Text="{Binding Description}" FontSize="Small"/>
+        <Label Text="Status stolika:" FontSize="Medium" />
+        <Label Text="{Binding State}" FontSize="Small"/>
+        <StackLayout Orientation="Horizontal">
+            <Button Text="Reserve" Command="{Binding AddReservation}" HorizontalOptions="FillAndExpand"></Button>
+            <Button Text="Make free" Command="{Binding MakeFree}" HorizontalOptions="FillAndExpand"></Button>
+            <Button Text="Add order" Command="{Binding AddOrder}" HorizontalOptions="FillAndExpand"></Button>
+        </StackLayout>
     </StackLayout>
-    
+
 </ContentPage>

@@ -10,12 +10,41 @@ namespace RestaurantMobileApp.ViewModels
     [QueryProperty(nameof(ItemId), nameof(ItemId))]
     public class TableDetailViewModel : BaseViewModel
     {
+        public TableDetailViewModel()
+        {
+            AddReservation = new Command(OnReserve);
+            MakeFree = new Command(OnFree);
+            AddOrder = new Command(OnOrder);
+        }
+
         private string itemId;
+
+        private int number;
+        private string description;
+        private string state;
         public int Id { get; set; }
 
-        public int text { get; set; }
+        public int Number 
+        { 
+            get { return number; }
+            set { SetProperty(ref number, value); } 
+        }
 
-        public string description { get; set; }
+        public string Description 
+        { 
+            get { return description; }
+            set { SetProperty(ref description, value); } 
+        }
+
+        public string State 
+        { 
+            get { return state; }
+            set { SetProperty(ref state, value); } 
+        }
+
+        public Command AddReservation { get; }
+        public Command MakeFree { get; }
+        public Command AddOrder { get; }
 
         public string ItemId
         {
@@ -35,15 +64,34 @@ namespace RestaurantMobileApp.ViewModels
             try
             {
                 RestService restService = new RestService();
-                var table = await restService.GetTable(Convert.ToInt32(itemId));
+                Table table = await restService.GetTable(Convert.ToInt32(itemId));
                 Id = table.id;
-                text = table.number;
-                description = table.description;
+                Number = table.number;
+                Description = table.description;
+                State = table.state;
             }
             catch (Exception)
             {
                 Debug.WriteLine("Failed to Load Item");
             }
+        }
+
+        private void OnReserve()
+        {
+            RestService restService = new RestService();
+            restService.setTableStatus(Id, "reserved");
+        }
+
+        private void OnFree()
+        {
+            RestService restService = new RestService();
+            restService.setTableStatus(Id, "free");
+
+        }
+
+        private void OnOrder()
+        { 
+           // await Shell.Current.GoToAsync($"{nameof(TableDetailPage)}?{nameof(TableDetailViewModel.ItemId)}={Id}");
         }
     }
 }

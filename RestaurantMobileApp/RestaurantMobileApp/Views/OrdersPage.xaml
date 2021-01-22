@@ -2,24 +2,51 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="RestaurantMobileApp.Views.OrdersPage"
-             xmlns:vm="clr-namespace:RestaurantMobileApp.ViewModels"
-             Title="{Binding Title}">
-    
-    <ContentPage.BindingContext>
-        <vm:OrdersViewModel />
-    </ContentPage.BindingContext>
-    
-    <ContentPage.Resources>
-        <ResourceDictionary>
-            <Color x:Key="Accent">#96d</Color>
-        </ResourceDictionary>
-    </ContentPage.Resources>
+             Title="{Binding Title}"
+             xmlns:local="clr-namespace:RestaurantMobileApp.ViewModels"  
+             xmlns:model="clr-namespace:RestaurantMobileApp.Models"  
+             x:Name="BrowseItemsPage">
 
-    <StackLayout>
-        <Label Text="number" x:Name="number" HorizontalOptions="FillAndExpand"/>
-        <Label Text="places" x:Name="places" HorizontalOptions="FillAndExpand"/>
-        <Label Text="description" x:Name="description" HorizontalOptions="FillAndExpand"/>
-
-    </StackLayout>
-
+    <ContentPage.ToolbarItems>
+    </ContentPage.ToolbarItems>
+    <!--
+      x:DataType enables compiled bindings for better performance and compile time validation of binding expressions.
+      https://docs.microsoft.com/xamarin/xamarin-forms/app-fundamentals/data-binding/compiled-bindings
+    -->
+    <RefreshView x:DataType="local:OrdersViewModel" Command="{Binding LoadOrdersCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
+        <CollectionView x:Name="OrdersListView"
+                ItemsSource="{Binding Orders}"
+                SelectionMode="Single"
+                SelectedItem="{Binding SelectedOrder}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid Padding="10" x:DataType="model:Order">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="1"
+                       Text="{Binding price, StringFormat='Kwota: {0}'}"
+                       FontAttributes="Bold" />
+                        <Label Grid.Column="2"
+                       Text="{Binding tableNumber, StringFormat='numer stolika: {0}'}"
+                       FontAttributes="Bold" />
+                        <Label Grid.Column="3"
+                       Text="{Binding status, StringFormat='Stan: {0:F2}'}"
+                       FontAttributes="Bold" />
+                        <Label Grid.Row="1"
+                       Grid.Column="1"
+                       Text="{Binding description, StringFormat='Opis: {0:F2}'}"
+                       FontAttributes="Italic"
+                       VerticalOptions="End" />
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </RefreshView>
 </ContentPage>

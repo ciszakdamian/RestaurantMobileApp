@@ -74,5 +74,19 @@ namespace RestaurantMobileApp.Services
 
             return tableList;
         }
+
+        public async void setTableStatus(int id, string status)
+        {
+           
+            string uri = backendUrl + "/tables/" + id + '/' + status;
+            HttpResponseMessage response = null;
+            StringContent content = new StringContent("", Encoding.UTF8, "application/json");
+            response = await _client.PutAsync(uri, content);
+
+            if (response.IsSuccessStatusCode)
+            {
+                Debug.WriteLine(@"\tTodoItem successfully saved.");
+            }
+        }
     }
 }
