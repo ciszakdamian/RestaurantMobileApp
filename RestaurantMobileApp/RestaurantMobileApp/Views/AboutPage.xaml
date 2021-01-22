@@ -21,6 +21,7 @@
             <RowDefinition Height="40" />
             <RowDefinition Height="40" />
             <RowDefinition Height="40" />
+            <RowDefinition Height="40" />
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
@@ -29,8 +30,9 @@
 
         <Entry Keyboard="Numeric" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" x:Name="TableNumber" Placeholder="Numer stolika" HorizontalOptions="FillAndExpand"/>
         <Entry Keyboard="Numeric" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" x:Name="PeopleNumber" Placeholder="Liczba osób"  HorizontalOptions="FillAndExpand"/>
-        <Editor Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" x:Name="Order" Placeholder="Zamówienie"  HorizontalOptions="FillAndExpand"/>
-        <Button Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"  HorizontalOptions="FillAndExpand" Text="Zatwierdz zamówienie" TextColor="White" BackgroundColor="Black" Clicked="onClick"/>
+        <Entry Keyboard="Numeric" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" x:Name="Price" Placeholder="Kwota zamówienia"  HorizontalOptions="FillAndExpand"/>
+        <Editor Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" x:Name="Order" Placeholder="Zamówienie"  HorizontalOptions="FillAndExpand"/>
+        <Button Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2"  HorizontalOptions="FillAndExpand" Text="Zatwierdz zamówienie" TextColor="White" BackgroundColor="Black" Clicked="onClick"/>
     </Grid>
 
 </ContentPage>

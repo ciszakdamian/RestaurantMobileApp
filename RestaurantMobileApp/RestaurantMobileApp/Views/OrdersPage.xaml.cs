@@ -9,10 +9,18 @@ namespace RestaurantMobileApp.Views
     public partial class OrdersPage : ContentPage
     {
 
+        OrdersViewModel _viewModel;
+
         public OrdersPage()
         {
             InitializeComponent();
-            BindingContext = new OrdersViewModel();
+            BindingContext = _viewModel = new OrdersViewModel();
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            _viewModel.OnAppearing();
         }
     }
 }

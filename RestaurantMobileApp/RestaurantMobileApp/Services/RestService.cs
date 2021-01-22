@@ -40,11 +40,25 @@ namespace RestaurantMobileApp.Services
             return table;
         }
 
-        public async void PostOrder(object item)
+        public async void PostTable(object item)
         {
             string json = JsonConvert.SerializeObject(item);
             StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
             string uri = backendUrl + "/tables";
+            HttpResponseMessage response = null;
+            response = await _client.PostAsync(uri, content);
+
+            if (response.IsSuccessStatusCode)
+            {
+                Debug.WriteLine(@"\tTodoItem successfully saved.");
+            }
+        }
+
+        public async void PostOrder(object item)
+        {
+            string json = JsonConvert.SerializeObject(item);
+            StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+            string uri = backendUrl + "/orders";
             HttpResponseMessage response = null;
             response = await _client.PostAsync(uri, content);
             
@@ -73,6 +87,28 @@ namespace RestaurantMobileApp.Services
             }
 
             return tableList;
+        }
+
+        
+        public async Task<Order[]> GetOrderList()
+        {
+            Order[] orderList = null;
+            try
+            {
+                string uri = backendUrl + "/orders";
+                HttpResponseMessage response = await _client.GetAsync(uri);
+                if (response.IsSuccessStatusCode)
+                {
+                    string content = await response.Content.ReadAsStringAsync();
+                    orderList = JsonConvert.DeserializeObject<Order[]>(content);
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("\tERROR {0}", ex.Message);
+            }
+
+            return orderList;
         }
 
         public async void setTableStatus(int id, string status)

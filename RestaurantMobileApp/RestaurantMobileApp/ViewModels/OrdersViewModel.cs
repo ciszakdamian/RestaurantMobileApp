@@ -1,6 +1,8 @@
 ﻿using RestaurantMobileApp.Models;
+using RestaurantMobileApp.Services;
 using System;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Essentials;
@@ -10,8 +12,6 @@ namespace RestaurantMobileApp.ViewModels
 {
     public class OrdersViewModel : BaseViewModel
     {
-
-        private Order _selectedOrder;
 
         public ObservableCollection<Order> Orders { get; }
         public Command LoadOrdersCommand { get; }
@@ -24,29 +24,36 @@ namespace RestaurantMobileApp.ViewModels
             Orders = new ObservableCollection<Order>();
 
             LoadOrdersCommand = new Command(async () => await ExecuteLoadOrdersCommand());
-
-            OrderTapped = new Command<Order>(OnOrderSelected);
             
+        }
+
+        public void OnAppearing()
+        {
+            IsBusy = true;
         }
 
         async Task ExecuteLoadOrdersCommand()
         {
+            IsBusy = true;
 
-        }
-
-        public Order SelectedOrder
-        {
-            get => _selectedOrder;
-            set
+            try
             {
-                SetProperty(ref _selectedOrder, value);
-                OnOrderSelected(value);
+                Orders.Clear();
+                RestService _restService = new RestService();
+                var items = await _restService.GetOrderList();
+                foreach (var item in items)
+                {
+                    Orders.Add(item);
+                }
             }
-        }
-
-        async void OnOrderSelected(Order item)
-        {
-           
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+            }
+            finally
+            {
+                IsBusy = false;
+            }
         }
     }
 }

@@ -13,13 +13,14 @@ namespace RestaurantMobileApp.Models
         [JsonProperty("price")]
         public double price { get; set; }
 
-        [JsonProperty("status")]
+        [JsonProperty("tableState")]
         public string status { get; set; }
 
         [JsonProperty("description")]
         public string description { get; set; }
 
         [JsonProperty("tableNumber")]
-        public int tableNumber { get; set; }
+        public int tableNr { get; set; }
+
     }
 }

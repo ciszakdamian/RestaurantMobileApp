@@ -15,23 +15,11 @@ namespace RestaurantMobileApp.Views
 
             InitializeComponent();
             _restService = new RestService();
-            this.getTable();
-        }
-
-        async void getTable()
-        {
-            Table table = await _restService.GetTable(1);
-            if (table != null)
-            {
-                Order.Text = table.description;
-                TableNumber.Text = "" + table.number;
-                PeopleNumber.Text = "" + table.places;
-            }
         }
 
         void onClick(object sender, EventArgs e)
         {
-            var item = new {description = Order.Text, number = TableNumber.Text, places = PeopleNumber.Text};
+            var item = new {description = Order.Text, number = TableNumber.Text, places = PeopleNumber.Text, price = Price.Text };
             _restService.PostOrder(item);
             DisplayAlert("Info", "Zamówienie zostalo złożone", "OK");
         }

@@ -44,7 +44,7 @@ namespace RestaurantMobileApp.ViewModels
                 description = description
             };
             RestService restService = new RestService();
-            restService.PostOrder(newTable);
+            restService.PostTable(newTable);
 
             // This will pop the current page off the navigation stack
             await Shell.Current.GoToAsync("..");
